@@ -1,29 +1,35 @@
 # MPTube
 
-A small Windows app that saves the audio of a public YouTube video as an MP3 file.
+Paste a YouTube link, pick a folder… and get an MP3. That's it (I promise).
 
-## What it does
+<p align="center">
+  <img width="720" alt="MPTube, waiting for a link" src="docs/screenshot-main.png" />
+</p>
 
-- Paste a YouTube link (`youtube.com/watch`, `youtu.be`, Shorts, Music). The title, duration, and thumbnail load on their own. **Paste** reads the clipboard only when you click it. Playlist and tracking parameters are dropped. A playlist with no video is not downloaded.
-- Change the file name if you want. The default is a cleaned version of the title. If that name already exists, the app writes `Title (1).mp3`, `Title (2).mp3`, and so on.
-- Choose a destination folder with the usual Windows folder window. The last folder, recent folders, and language are kept in `%APPDATA%\YouTubeMP3Saver\settings.json`. A folder that is not available stays in the list with its saved path. The app does not clear, replace, or create it.
-- Saves the best available audio as MP3 (`bestaudio/best`, `--audio-quality 0`). It does not download a separate video just to extract the sound. The result is lossy MP3.
-- English and Spanish. If Windows starts in a language beginning with `es`, the app starts in Spanish; otherwise English. Switching language does not clear the link, file name, folder, or history.
-- After a file is written, **Show in folder** opens Explorer with that MP3 selected.
+Windows 10 or later, 64-bit. Grab it from the [Releases](https://github.com/wrongpixels/MPTube/releases) page and run it. No install.
 
-## Download
+## Features and such
 
-Windows 10 or later, 64-bit. Get the executable from the [Releases](https://github.com/wrongpixels/MPTube/releases) page.
+- Previews title, duration and thumbnail before downloading
+- Best available audio, saved as MP3 (lossy, and it does not pull down a whole video just to get the sound)
+- Auto-numbered file names if one already exists (`Title (1).mp3`, `Title (2).mp3`, …)
+- Remembers recent folders and language (English / Spanish)
+- **Paste** only reads the clipboard when you click it. Playlist and tracking junk is dropped. A playlist with no video is left alone
+- After the file is written, **Show in folder** opens Explorer with that MP3 selected
+
+A folder that isn't there (a drive you unplugged, for example) stays in the list with the path you saved. MPTube does not clear it, replace it, or create it.
 
 ## Requirements
 
-There is no Python, Java, or administrator install. The executable does not bundle the helper programs. The first time a preview or download needs them, the app downloads these official builds over HTTPS, checks their SHA-256 checksums, and stores them in `%LOCALAPPDATA%\YouTubeMP3Saver\tools\`:
+No Python, Java, or administrator install. The .exe does not bundle the helper programs. The first time a preview or download needs them, MPTube downloads these builds over HTTPS, checks their SHA-256 checksums, and keeps them in `%LOCALAPPDATA%\YouTubeMP3Saver\tools\`:
 
-- yt-dlp 2026.10.26 (`yt-dlp.exe`)
-- FFmpeg 9.0.2 essentials (`ffmpeg.exe`, from Gyan / GyanD)
-- Deno 2.9.8 (`deno.exe`), the JavaScript runtime yt-dlp uses for full YouTube support
+- yt-dlp 2026.10.26
+- FFmpeg 9.0.2 essentials (Gyan / GyanD)
+- Deno 2.9.8, the JavaScript runtime yt-dlp uses for YouTube
 
-If those exact versions are already in the cache, they are reused. A file whose checksum does not match is discarded. Downloads can still fail if YouTube changes something.
+If those exact versions are already cached, they are reused. A file that fails the checksum is thrown away. YouTube changes things, so a video can still fail.
+
+Language, the last folder, and recent folders are stored in `%APPDATA%\YouTubeMP3Saver\settings.json`.
 
 ## Build from source
 
@@ -33,7 +39,7 @@ Go 1.26. From the repository root, on Linux or Windows:
 GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-H windowsgui -s -w" -o dist/MPTube.exe ./cmd/youtubemp3
 ```
 
-`scripts/build.sh` runs that command. A Windows application manifest and the app icon are embedded via `cmd/youtubemp3/rsrc_windows_amd64.syso` when present.
+`scripts/build.sh` runs that command. The Windows manifest and icon are embedded from `cmd/youtubemp3/rsrc_windows_amd64.syso` when that file is present.
 
 ## Personal use
 
