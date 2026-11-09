@@ -1,0 +1,53 @@
+Third-party tools downloaded by YouTube MP3 Saver
+=================================================
+
+This application does not bundle the helper binaries in the shipped .exe.
+On first use it downloads the following official/reputable builds over HTTPS,
+verifies published SHA-256 checksums, and stores them in the per-user cache:
+
+  %LOCALAPPDATA%\YouTubeMP3Saver	ools
+1) yt-dlp 2026.10.26
+   Source: https://github.com/yt-dlp/yt-dlp/releases/tag/2026.10.26
+   File:   yt-dlp.exe
+   SHA256: f5389d3698ecde4ef06f4e6b1ce0294fe9ac1396228c8990b8d3416d6d177a7d
+   License: Unlicense (public domain dedication)
+   https://github.com/yt-dlp/yt-dlp/blob/master/LICENSE
+
+2) FFmpeg 9.0.2 essentials (Windows x64)
+   Publisher: Gyan Doshi / GyanD/codexffmpeg (linked from ffmpeg.org)
+   Source: https://github.com/GyanD/codexffmpeg/releases/tag/9.0.2
+   File:   ffmpeg-9.0.2-essentials_build.zip
+   SHA256: 60f467265b1e312373dbcd92200c2618a74850f98d3d078e94296bb3fa2047ba
+   Extracted file used: ffmpeg.exe
+   License: GPLv3 (essentials builds from gyan.dev / GyanD)
+   https://www.ffmpeg.org/legal.html
+   https://www.gyan.dev/ffmpeg/builds/
+
+   FFmpeg is run as a separate program, not linked into this application.
+
+3) Deno 2.9.8 (Windows x64)
+   Source: https://github.com/denoland/deno/releases/tag/v2.9.8
+   File:   deno-x86_64-pc-windows-msvc.zip
+   SHA256: cba84b26e0df5ae7f74fc66b86a95b866872a86292ebd84fa1e959927edd93bf
+   Extracted file used: deno.exe
+   License: MIT
+   https://github.com/denoland/deno/blob/main/LICENSE.md
+
+   yt-dlp requires an external JavaScript runtime for full YouTube support.
+   Deno is the runtime yt-dlp enables by default.
+
+4) github.com/lxn/walk and github.com/lxn/win
+   License: BSD-style (see the modules after `go mod download`)
+   Used to build the native Windows UI.
+
+5) golang.org/x/sys
+   License: BSD-3-Clause
+   Used for Windows job-object process cancellation.
+
+6) golang.org/x/image/webp
+   License: BSD-3-Clause
+   Pure Go still-image WebP decoder used for preview thumbnails.
+   Not a downloaded helper and not linked against libwebp.
+
+Checksums were copied from the official SHA2-256SUMS / adjacent .sha256 /
+.gitHub .sha256sum files of those releases on 2026-11-08.
